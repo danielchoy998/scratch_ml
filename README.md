@@ -1,37 +1,66 @@
-Here is the implementation of linear regression from scratch
+# Linear Regression from Scratch
 
-model : Find a set of parameters fit the data best on y = mx + b
-Goal -> minimize the loss function with MSE
+## Overview
+Implementation of linear regression from scratch using gradient descent optimization.
 
-Process :
+**Model**: Find parameters that best fit the data using the equation `y = mx + b`  
+**Goal**: Minimize the loss function using Mean Squared Error (MSE)
 
-Initialization : We define random parameters for the model LinearRegression()
-Inference Part : We expect x -> input, y -> output
-Training Part : We try to improve the model by updating the parameters based on the loss function
-Optimization : Gradient Descent -> w, b = w - a * dw, b - a * db
+## Mathematical Foundation
 
-How to compute the gradient of the loss function with respect to the parameters ? ie. dL/dw, dL/db
+### Loss Function
+**Mean Squared Error (MSE)**:
+```
+L = (1/n) * Σ(y_pred - y_true)²
+```
 
-First, we need to define the loss function
-1. MSE (Mean Square Error) = 1/n * sum (y_pred - y)**2
+### Gradient Computation
+To minimize the loss, we compute partial derivatives:
 
-Second, we need to compute the derivative
-2a. dL_db = -2/n * sum(y[i]-y_pred[i]), dL/dW = -2
-2b. dL_dw = -2/n * sum((x[i]*(y_pred[i] - y[i]))for i in range(size))
+**Gradient with respect to bias (b)**:
+```
+∂L/∂b = (-2/n) * Σ(y_true - y_pred)
+```
 
-Third, we need to update the parameters
-3. w, b = w - a * dw, b - a * db
+**Gradient with respect to weight (w)**:
+```
+∂L/∂w = (-2/n) * Σ(x * (y_true - y_pred))
+```
 
-Function : 
-    def forward(self, x) :
-    def loss(self, y_pred, y_true) :
-    def gradient(self, x, y_pred, y) :
-    def update(self, grad_w, grad_b) :
+### Parameter Update
+Using gradient descent with learning rate `α`:
+```
+w = w - α * ∂L/∂w
+b = b - α * ∂L/∂b
+```
 
-Training Loop : 
-In each iteration, we need to :
-1. Forward pass : Compute the prediction
-2. Compute the loss
-3. Backward pass : Compute the gradient
-4. Update the parameters
+## Implementation Structure
+
+### Core Functions
+```python
+def forward(self, x):
+    # Forward pass: compute predictions
+
+def loss(self, y_pred, y_true):
+    # Compute MSE loss
+
+def gradient(self, x, y_pred, y_true):
+    # Compute gradients for w and b
+
+def update(self, grad_w, grad_b):
+    # Update parameters using gradients
+```
+
+### Training Process
+1. **Initialization**: Define random parameters for LinearRegression()
+2. **Inference**: Input `x` → Output `y`
+3. **Training**: Update parameters based on loss function
+4. **Optimization**: Apply gradient descent
+
+### Training Loop
+For each iteration:
+1. **Forward pass**: Compute predictions
+2. **Loss computation**: Calculate MSE
+3. **Backward pass**: Compute gradients
+4. **Parameter update**: Apply gradient descent
 

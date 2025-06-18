@@ -1,7 +1,5 @@
 import random
 
-
-
 random.seed(42)
 
 class LinearRegression :
@@ -41,16 +39,22 @@ class LinearRegression :
 x = [1.0, 2.0, 3.0, 4.0, 5.0]
 y = [2.3, 4.7, 6.9, 9.1, 11.3]
 
+# initialize model
 model = LinearRegression()
 print(f"Initial weight : {model.weight}, Initial bias : {model.bias}")
+
+# compute prediction
 y_pred = model.forward(x)
 
+# compute loss
 old_loss = model.loss(y_pred, y)
 print(f"Initial loss : {old_loss}")
 
+# Computegradient
 grad_w, grad_b = model.gradient(x,y_pred,y)
 print(grad_w, grad_b)
 
+# update model
 model.update(grad_w, grad_b)
 print(f"Updated weight : {model.weight}, Updated bias : {model.bias}")
 
@@ -60,6 +64,7 @@ new_loss = model.loss(y_pred, y)
 print(f"Updated loss : {new_loss}")
 print(f"Loss decreased from {old_loss} to {new_loss}")
 
+# training model for 1000 iterations
 for i in range(1000):
     y_pred = model.forward(x)
     old_loss = model.loss(y_pred, y)
